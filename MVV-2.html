@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payroll</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ebdddd;
+    }
+    #container {
+      width: 50%;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+    }
+    .left-column {
+      width: 45%;
+    }
+    .right-column {
+      width: 45%;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: lightsalmon;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div class="left-column">
+      <h2>Payroll System</h2>
+      <form id="payrollForm">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required><br>
+        
+        <label for="department">Department</label>
+        <input type="text" id="department" name="department" required><br>
+        
+        <label for="grossPay">GROSS PAY</label>
+        <input type="text" id="grossPay" name="grossPay" required oninput="calculate()"><br>
+        
+        <label>Premiums</label><br>
+        <label for="sss">SSS</label>
+        <input type="text" id="sss" name="sss" value="500" readonly><br>
+        
+        <label for="pHealth">P-Health</label>
+        <input type="text" id="pHealth" name="pHealth" value="600" readonly><br>
+        
+        <label for="pagIbig">PAG IBIG</label>
+        <input type="text" id="pagIbig" name="pagIbig" value="3000" readonly><br>
+        
+        <label for="wTax">WTAX</label>
+        <input type="text" id="wTax" name="wTax" value="12000" readonly><br>
+        
+        <label for="totalDeductions">TOTAL DEDUCTIONS</label>
+        <input type="text" id="totalDeductions" name="totalDeductions" readonly><br>
+      </form>
+    </div>
+
+    <div class="right-column">
+        <br>
+        <br>
+        <br>
+        <br>
+      <label for="empNumber">Employee Number</label>
+      <input type="text" id="empNumber" name="empNumber" required><br>
+      
+      <label for="period">Period</label>
+      <input type="text" id="period" name="period" required><br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <label for="netPay">NET PAY</label>
+      <input type="text" id="netPay" name="netPay" readonly><br>
+      
+      <button type="button" onclick="clearForm()">Clear</button>
+    </div>
+  </div>
+
+  <script>
+    function calculate() {
+      var grossPay = parseFloat(document.getElementById('grossPay').value);
+      var sss = parseFloat(document.getElementById('sss').value);
+      var pHealth = parseFloat(document.getElementById('pHealth').value);
+      var pagIbig = parseFloat(document.getElementById('pagIbig').value);
+      var wTax = parseFloat(document.getElementById('wTax').value);
+
+      var totalDeductions = sss + pHealth + pagIbig + wTax;
+      var netPay = grossPay - totalDeductions;
+
+      document.getElementById('totalDeductions').value = totalDeductions.toFixed(2);
+      document.getElementById('netPay').value = netPay.toFixed(2);
+    }
+
+    function clearForm() {
+      document.getElementById('payrollForm').reset();
+      document.getElementById('totalDeductions').value = "";
+      document.getElementById('netPay').value = "";
+    }
+  </script>
+</body>
+</html>
